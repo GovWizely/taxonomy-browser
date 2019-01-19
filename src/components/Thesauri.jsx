@@ -28,7 +28,8 @@ class Thesauri extends Component {
         }
       ],
       checkedListAll: [],
-      AllItemsChecked: false
+      AllItemsChecked: false,
+      queryString: '',
     };
   };
 
@@ -89,6 +90,21 @@ class Thesauri extends Component {
         AllItemsChecked: false,
       }));
     }
+  };
+
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+
+  searchUrl = () => {
+    const API_KEY = "ShCzzrAkXLpMTsTlhFhUjD29";
+    console.log(`https://api.trade.gov/ita_taxonomies/search?api_key=${API_KEY}&q=${this.state.queryString}&types=${this.state.checkedListAll}`);
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.searchUrl();
   }
 
   render() {
@@ -98,26 +114,35 @@ class Thesauri extends Component {
       <div>
         <h1>Thesaurus of International Trade Terms</h1>
         <p>The International Trade Administration’s (ITA) Thesaurus of International Trade Terms is a controlled and structured list of words and phrases used to tag and index information found on the ITA’s websites and databases. The thesaurus covers all subjects related to international trade and foreign investment with particular emphasis on exporting, trade promotion, market access and enforcement and compliance.</p>
-        <div className="col-1">
-          <label>
-            {/* <input type="checkbox" checked={AllItemsChecked} onClick={this.selectItem.bind(this)}/>Select All */}
-            <Checkbox checked={AllItemsChecked} onClick={this.selectItem.bind(this)} color="primary"/>Select All
-          </label>
+
+        <div className="center">
+          <input type="text" name="queryString" placeholder="Enter search query" value={this.state.queryString} onChange={(event) => this.handleChange(event)}/>
+          <button type="submit" onClick={(e)=>this.handleSubmit(e)}>Search</button>
         </div>
 
-        {columns.map(col => {
-          return (
-            <Column 
-              {...col}
-              key={col.name}
-              click={this.openModal}
-              selectedItems={this.selectedItems.bind(this)}
-              AllItemsChecked={AllItemsChecked}
-              checkedListAll={checkedListAll}
-              handleCheckboxClick={this.handleCheckboxClick}
-            />
-          );
-        })}
+        <div className="columns">
+          <p className="col-1">Include in search:</p>
+          <div id="selectAll">
+            <label>
+              {/* <input type="checkbox" checked={AllItemsChecked} onClick={this.selectItem.bind(this)}/>Select All */}
+              <Checkbox checked={AllItemsChecked} onClick={this.selectItem.bind(this)} color="primary"/>Select All
+            </label>
+          </div>
+
+          {columns.map(col => {
+            return (
+              <Column 
+                {...col}
+                key={col.name}
+                click={this.openModal}
+                selectedItems={this.selectedItems.bind(this)}
+                AllItemsChecked={AllItemsChecked}
+                checkedListAll={checkedListAll}
+                handleCheckboxClick={this.handleCheckboxClick}
+              />
+            );
+          })}
+        </div>
         {/* <p>Are all items selected: {JSON.stringify(AllItemsChecked, null, 2)}</p>
         <p>Items selected: {JSON.stringify(checkedListAll, null, 2)}</p> */}
         <p>Are all items selected: {`${AllItemsChecked}`}</p>
