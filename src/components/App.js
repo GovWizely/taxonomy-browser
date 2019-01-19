@@ -4,6 +4,7 @@ import StartView from './StartView';
 import ResultsList from './ResultsList';
 import TermInfo from './TermInfo';
 import Footer from './Footer';
+import Thesauri from './Thesauri';
 
 class App extends Component {
   constructor() {
@@ -16,7 +17,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Route exact path="/" component={StartView} />
+        {/* <Route exact path="/" component={StartView} /> */}
+        <Route exact path="/" component={Thesauri} />
         <Route exact path="/?#search/{query}" component={ResultsList} />
         <Route exact path="/?#{JSONid}" component={TermInfo} />
         {/* omit the `?` for thesauri */}
