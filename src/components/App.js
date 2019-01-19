@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import StartView from './StartView';
+// import StartView from './StartView';
 import ResultsList from './ResultsList';
 import TermInfo from './TermInfo';
 import Footer from './Footer';
