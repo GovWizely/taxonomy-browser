@@ -7,10 +7,12 @@ import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
 export const history = createHistory();
+ 
+const API_KEY = "ShCzzrAkXLpMTsTlhFhUjD29";
 
 ReactDOM.render(
   <Router history={history}>
-    <App />
+    <App API_KEY={API_KEY}/>
   </Router>,
   document.getElementById('taxonomy_container')
 );

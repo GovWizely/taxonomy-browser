@@ -1,34 +1,37 @@
 import React, { Component } from "react";
 import Column from './Column';
 import { Checkbox } from "@material-ui/core";
+import { Link, withRouter } from 'react-router-dom';
 
 
 class Thesauri extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.handleCheckboxClick = this.handleCheckboxClick.bind(this);
 
     this.state = {
+      /* Checkboxes */
       columns: [
         {
           name: "col-2",
           items: [
-            { name: "Trade Topics", value: "trade_topics", link: "https://developer.trade.gov/taxonomy.html#RBBed4Voz7iS3nUECA3yzNM" },
-            { name: "Industries", value: "industries", link: "https://developer.trade.gov/taxonomy.html#R79uIjoQaQ9KzvJfyB1H7Ru" },
-            { name: "Countries", value: "countries", link: "https://developer.trade.gov/taxonomy.html#R8W91u35GBegWcXXFflYE4" },
+            { name: "**Trade Topics", value: "Trade Topics", id: "RBBed4Voz7iS3nUECA3yzNM" },
+            { name: "Industries", value: "Industries", id: "R79uIjoQaQ9KzvJfyB1H7Ru" },
+            { name: "Countries", value: "Countries", id: "R8W91u35GBegWcXXFflYE4" },
           ]
         },
         {
           name: "col-3",
           items: [
-            { name: "World Regions", value: "world_regions", link: "https://developer.trade.gov/taxonomy.html#R8cndKa2D8NuNg7djwJcXxB" },
-            { name: "Trade Regions", value: "trade_regions", link: "https://developer.trade.gov/taxonomy.html#R7ySyiNxcfeZ6bfNjhocNun" },
-            { name: "US Trade Initiatives", value: "US_trade_initiatives", link: "https://developer.trade.gov/taxonomy.html#RBqqOvJ9rXMcmc5SDhGjWTp" },
+            { name: "World Regions", value: "World Regions", id: "R8cndKa2D8NuNg7djwJcXxB" },
+            { name: "Trade Regions", value: "Trade Regions", id: "R7ySyiNxcfeZ6bfNjhocNun" },
+            { name: "**US Trade Initiatives", value: "US Trade Initiatives", id: "RBqqOvJ9rXMcmc5SDhGjWTp" },
           ]
         }
       ],
       checkedListAll: [],
       AllItemsChecked: false,
+      /* form */
       queryString: '',
     };
   };
@@ -97,19 +100,8 @@ class Thesauri extends Component {
     this.setState({ [name]: value });
   };
 
-  searchUrl = () => {
-    const API_KEY = "ShCzzrAkXLpMTsTlhFhUjD29";
-    console.log(`https://api.trade.gov/ita_taxonomies/search?api_key=${API_KEY}&q=${this.state.queryString}&types=${this.state.checkedListAll}`);
-  }
-
-  handleSubmit = event => {
-    event.preventDefault();
-    this.searchUrl();
-  }
-
   render() {
     const { columns, checkedListAll, AllItemsChecked } = this.state;
-
     return (
       <div>
         <h1>Thesaurus of International Trade Terms</h1>
@@ -117,14 +109,18 @@ class Thesauri extends Component {
 
         <div className="center">
           <input type="text" name="queryString" placeholder="Enter search query" value={this.state.queryString} onChange={(event) => this.handleChange(event)}/>
-          <button type="submit" onClick={(e)=>this.handleSubmit(e)}>Search</button>
+          <Link to={{pathname: `/resultsList`, state: {
+            queryString: this.state.queryString,
+            typesChecked: this.state.checkedListAll,
+          }}}>
+            <button>Search</button>
+          </Link>
         </div>
 
         <div className="columns">
           <p className="col-1">Include in search:</p>
           <div id="selectAll">
             <label>
-              {/* <input type="checkbox" checked={AllItemsChecked} onClick={this.selectItem.bind(this)}/>Select All */}
               <Checkbox checked={AllItemsChecked} onClick={this.selectItem.bind(this)} color="primary"/>Select All
             </label>
           </div>
@@ -143,13 +139,11 @@ class Thesauri extends Component {
             );
           })}
         </div>
-        {/* <p>Are all items selected: {JSON.stringify(AllItemsChecked, null, 2)}</p>
-        <p>Items selected: {JSON.stringify(checkedListAll, null, 2)}</p> */}
-        <p>Are all items selected: {`${AllItemsChecked}`}</p>
-        <p>Items selected: {`${checkedListAll}`}</p>
+        <p><b>Are all items selected:</b> {`${AllItemsChecked}`}</p>
+        <p><b>Items selected:</b> {`${checkedListAll}`}</p>
       </div>
     );
   }
 }
 
-export default Thesauri;
+export default withRouter(Thesauri);
