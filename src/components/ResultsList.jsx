@@ -20,9 +20,9 @@ class ResultsList extends Component {
 
   searchUrl = () =>  {
     const size = this.state.itemsPerPage;
-    const queryString = this.props.location.state.queryString;
-    const types = this.props.location.state.typesChecked;
-    return `https://api.trade.gov/ita_taxonomies/search?api_key=${this.props.API_KEY}&size=${size}&q=${queryString}&types=${types}&offset=${(this.state.activePage-1)*(size)}`
+    const searchParams = this.props.location.search;
+    return `https://api.trade.gov/ita_taxonomies/search?api_key=${this.props.API_KEY}&size=${size}${searchParams}&offset=${(this.state.activePage-1)*(size)}`
+
   };
 
   fetchResults = () => {

@@ -1,4 +1,4 @@
-#taxonomy_container {
+.taxonomy_container {
   font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   border: 0.75px solid lightgray;
   align-items: center;
@@ -9,12 +9,15 @@
   width: 1040px;
 }
 
-#taxonomy_container .center {
+/* Four Style Sections: Start (Thesauri), Footer, Resultslist, TermInfo */
+
+/* Start (Thesauri) view */
+.taxonomy_container .center {
   text-align: center;
   margin-bottom: 15px;
 }
 
-#taxonomy_container .center button {
+.taxonomy_container .center button {
   font-size: 14px;
   line-height: 28px;
   padding-left: 5px;
@@ -24,12 +27,12 @@
   border: 2px solid #757575;
 }
 
-#taxonomy_container .center button a {
+.taxonomy_container .center button a {
   color: black;
   text-decoration: none;
 }
 
-#taxonomy_container input[type=text] {
+.taxonomy_container input[type=text] {
   margin-left: auto;
   margin-right: auto;
   border: 2px solid #757575;
@@ -41,63 +44,47 @@
   height: 28px;
 }
 
-#taxonomy_container .columns {
+.taxonomy_container form input::placeholder {
+  color: #515151;
+}
+
+.taxonomy_container .columns {
   text-align: center;
 }
 
-#taxonomy_container .col-1 {
+.taxonomy_container .col-1 {
   display: inline-block;
   vertical-align: top;
   text-align: center;
   margin-top: 13px;
 }
 
-#taxonomy_container #selectAll {
+.taxonomy_container #selectAll {
   display: inline-block;
   vertical-align: top;
   text-align: left;
 }
 
-#taxonomy_container .col-2 {
+.taxonomy_container .col-2 {
   display: inline-block;
   vertical-align: top;
   text-align: left;
 }
 
-#taxonomy_container .col-3 {
+.taxonomy_container .col-3 {
   display: inline-block;
   vertical-align: top;
   text-align: left;
 }
 
-#taxonomy_container form input[type=checkbox] {
+.taxonomy_container form input[type=checkbox] {
   border: 2.5px solid black;
   size: 10px;
 }
 
-#taxonomy_container .spinner {
-  margin-left: 75px;
-}
+/* Footer (appears in ResultsList and TermInfo views) */
 
-#taxonomy_container ul.pagination li {
-  display: inline-block;
-  text-align: center;
-  width: 20px;
-  line-height: 24px;
-  /* padding: 3px 10px; */
-  margin: 3px 7px;
-}
-
-#taxonomy_container ul.pagination li.active {
-  border-bottom: 2px solid black;
-}
-
-#taxonomy_container ul.pagination li a {
-  color: black;
-  text-decoration: none;
-}
-
-#taxonomy_container pre {
+.taxonomy_container pre {
   color: red;
   font-size: 14px;
   padding: 4px 8px;
@@ -107,84 +94,106 @@
   overflow-x: auto;
 }
 
-.footer {
+.taxonomy_container .footer {
   margin-top: 20px;
 }
 
-.footer button {
+.taxonomy_container .footer button {
   font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 20px;
   margin-top: 8px;
 }
 
-#taxonomy_container .resultsList {
+/* ResultsList view */
+
+.taxonomy_container .resultsList {
   margin-top: 20px;
 }
 
-#taxonomy_container .breadcrumbs {
+.taxonomy_container .spinner {
+  margin-left: 75px;
+}
+
+.taxonomy_container ul.pagination li {
+  display: inline-block;
+  text-align: center;
+  width: 20px;
+  line-height: 24px;
+  margin: 3px 7px;
+}
+
+.taxonomy_container ul.pagination li.active {
+  border-bottom: 2px solid black;
+}
+
+.taxonomy_container ul.pagination li a {
+  color: black;
+  text-decoration: none;
+}
+
+/* TermInfo view */
+
+.taxonomy_container .breadcrumbs {
   margin: 25px 20px 20px auto;
 }
 
-#taxonomy_container .breadcrumbs h1, h2, h3, h4 {
+.taxonomy_container .breadcrumbs h1, h2, h3, h4 {
   display: inline;
 }
 
-#taxonomy_container .termInfo span {
+.taxonomy_container .termInfo span {
   display: block;
   background-color: #e8eff3;
   padding: 10px;
 }
 
-#taxonomy_container .termInfo p {
+.taxonomy_container .termInfo p {
   margin-left: 20px;
 }
 
-#taxonomy_container .termRelation span {
-  display: block;
-  background-color: #e8eff3;
-  padding: 10px;
-}
-
-/* #taxonomy_container .termRelation p {
-  margin-left: 20px;
-} */
-
-#taxonomy_container .termRelation div {
-  display: inline-block;
-  vertical-align: top;
-  margin: 5px 10px 5px 20px;
-  /* padding: 0 5px; */
-}
-
-#taxonomy_container .termRelation p {
-  margin: 15px auto 5px;
-}
-
-#taxonomy_container .termRelation li {
-  list-style-type: none;
-  margin-bottom: 3px;
-}
-
-#taxonomy_container .termRelation ul {
-  padding-left: 0;
-}
-
-#taxonomy_container hr {
+.taxonomy_container hr {
   border: none;
   height: 3px;
   background-color: #94afbf;
   box-shadow: 0 1px 1px 0 gray;
 }
 
-#taxonomy_container .termRelation img {
+.taxonomy_container .termRelation span {
+  display: block;
+  background-color: #e8eff3;
+  padding: 10px;
+}
+
+.taxonomy_container .termRelation div {
+  display: inline-block;
+  vertical-align: top;
+  margin: 5px 10px 5px 20px;
+}
+
+.taxonomy_container .termRelation p {
+  margin: 15px auto 5px;
+}
+
+.taxonomy_container .termRelation li {
+  list-style-type: none;
+  margin-bottom: 3px;
+}
+
+.taxonomy_container .termRelation ul {
+  padding-left: 0;
+}
+
+
+.taxonomy_container .termRelation img {
   margin-top: 10px;
 }
 
-#taxonomy_container .superTerms p {
+.taxonomy_container .superTerms p {
   margin: 5px auto 5px 20px;
 }
 
+/* a sort of chevron shape with css, it's kinda awkward */
 /* #arrow {
   margin: 0;
 	border-color: transparent #94afbf;

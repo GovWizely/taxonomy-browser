@@ -7,9 +7,9 @@ import Thesauri from './Thesauri';
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="taxonomy_container">
         <Route exact path={`/`} component={Thesauri} />
-        <Route exact path={`/resultsList`} render={(props) => <ResultsList {...props} API_KEY={this.props.API_KEY} />} />
+        <Route path={`/search`} render={(props) => <ResultsList {...props} API_KEY={this.props.API_KEY} />} />
         <Route exact path={`/id/:id`} render={(props) => <TermInfo {...props} API_KEY={this.props.API_KEY} location={props.location} />} />
       </div>
     );

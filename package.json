@@ -79,7 +79,7 @@
     "gh-pages": "^2.0.1",
     "puppeteer": "^1.11.0"
   },
-  "homepage": "http://govwizely.github.io/taxonomy-browser",
+  "homepage": ".",
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",

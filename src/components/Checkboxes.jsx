@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Checkbox } from "@material-ui/core";
-import { Link, withRouter } from 'react-router-dom'; 
-import topics from '../topics';
+import { withRouter } from 'react-router-dom'; 
 
 class Checkboxes extends Component {
 
@@ -30,7 +29,7 @@ class Checkboxes extends Component {
                   checked={checkedListAll.includes(item.value)}
                   onChange={handleCheckboxClick}
                   color="primary"
-                /><Link to={{pathname: `/id/${topics[item.value].id}`}}>{item.name}</Link>
+                />{item.name}
               </label>
             </div>
           );

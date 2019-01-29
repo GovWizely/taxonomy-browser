@@ -23,14 +23,23 @@ The thesaurus was developed by ITA’s staff of international trade specialists,
     ```html
     <link rel="stylesheet" type="text/css" href="taxonomy-browser.css">
     <script type="text/javascript" src="taxonomy-browser.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        API_KEY = "your_API_KEY"; // get it from http://api.trade.gov/
+        divID = "taxonomy_container"; // Or the ID of the div where you'd like it to appear
+        window.Explorer.renderTaxonomy(divID, API_KEY);
+      });
+    </script>
     ```
 
-3. Place the element `<div id="taxonomy_container"></div>` where the taxonomy container should appear in the `<body>`.
+3. Input the appropriate API_KEY and div ID into the script.
+4. Place the element `<div id="taxonomy_container"></div>` where the taxonomy container should appear in the `<body>`.
 
 ## Known issues
-* In the checkboxes: `US Trade Initiatives` and `Trade Topics` have asterisks because they don't return any results when passed as part of the search query
+* In the checkboxes: `Trade Topics` has asterisks because it doesn't return any results when passed as part of the search query
+* Searching with no search query and no checkboxes checked returns more search results than searching with all checkboxes checked.
 * the `Download Taxonomy` button is not connected to anything (appears in the ResultsList and TermInfo views)
 
 ## Additional Info
 * This project was bootstrapped with Create React App, and has been ejected to enable customization of webpack.
-* Two polyfill packages are implemented to support IE11: `react-app-polyfill/ie11`, and `babel-polyfill`.  They must be imported in that order in `index.js`.  Eventually, if IE11 support is no longer required, those two import statements (and the `babel-polyfill` npm package) can be safely removed.
+* Two polyfill packages are implemented to support IE11: `react-app-polyfill/ie11`, and `babel-polyfill`.  They must be imported *in that order* in `index.js`.  Eventually, if IE11 support is no longer required, those two import statements (and the `babel-polyfill` npm package) can be safely removed.
