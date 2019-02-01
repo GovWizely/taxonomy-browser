@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 
-jest.setTimeout(30000);
+jest.setTimeout(60000);
 
 let browser;
 let page;
@@ -20,7 +20,7 @@ test('main title is present', async () => {
 
 test('user can search based on text input', async () => {
   
-  // enter the work "banks" in the text input element, then click Search button
+  // enter the word "banks" in the text input element, then click Search button
   const textInput = '.taxonomy_container input[type="text"]';
   const searchButton = '.taxonomy_container div.center button';
   await page.click(textInput);
@@ -39,7 +39,7 @@ test('user can search based on text input', async () => {
   // arrive on the TermInfo page, identify concept group
   const termInfoLabel = '.taxonomy_container div.breadcrumbs h1';
   await page.waitForSelector(termInfoLabel);
-  const conceptGroup = '.taxonomy_container > div > div.superTerms > ul > li > a';
+  const conceptGroup = '.taxonomy_container div.superTerms > p > a';
   await page.waitForSelector(conceptGroup);
   const ITA_home = '.taxonomy_container > div > div.breadcrumbs > h4 > a';
   await page.waitForSelector(ITA_home);
@@ -66,7 +66,7 @@ test('user can search based on a checkbox input', async () => {
   // arrive on the TermInfo page, identify concept group
   const termInfoLabel = '.taxonomy_container div.breadcrumbs h1';
   await page.waitForSelector(termInfoLabel);
-  const conceptGroup = '.taxonomy_container > div > div.superTerms > ul > li > a';
+  const conceptGroup = '.taxonomy_container div.superTerms > p > a';
   await page.waitForSelector(conceptGroup);
   const ITA_home = '.taxonomy_container > div > div.breadcrumbs > h4 > a';
   await page.waitForSelector(ITA_home);

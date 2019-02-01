@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom'; 
 import arrow from '../Right_Arrow.png';
-import Footer from './Footer';
+// import Footer from './Footer';
 import topics from '../topics';
 class TermInfo extends Component {
   constructor(props) {
@@ -14,10 +14,16 @@ class TermInfo extends Component {
         related_terms: {}, // unused
         object_properties: { member_of: [{}], has_related: [{}], has_broader: [{}], has_narrower: [{}], has_member: [{}], is_in_scheme: [{}], is_top_concept_in_scheme: [{}], micro_thesaurus_of: [{}] },
       },
-      errorMessage: '',
+      errorMessage: "",
       loading: false,
+      queryString: "",
     }
   }
+
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
 
   targetUrl = () => {
     const id =  this.props.match.params.id;
@@ -71,32 +77,46 @@ class TermInfo extends Component {
       else return null
     }
 
-    const narrowerTerms = () => { // "has_narrower" or "has_member"
+    const sortedTerms = (attribute) => {
+      if (attribute) {
+        return attribute.sort(function(a, b) {
+          if (a.label < b.label) { return -1 }
+          if (a.label > b.label) { return 1 }
+          return 0;
+        }).map((t, i) => {
+          return <li key={i}><Link to={{pathname: `/id/${t.id}`}}>{t.label}</Link></li>          
+        })
+      } else return null
+    }
+
+    const narrowerTerms = () => {  // "has_narrower" or "has_member"
       if (object_properties.has_narrower) {
-        return (object_properties.has_narrower.map((t, i) => {
-          return <li key={i}><Link to={{pathname: `/id/${t.id}`}}>{t.label}</Link></li>
-        }) )
+        return sortedTerms(object_properties.has_narrower)
       } else if (object_properties.has_member) {
-        return (object_properties.has_member.map((t, i) => {
-          return <li key={i}><Link to={{pathname: `/id/${t.id}`}}>{t.label}</Link></li>
-        }) )      
+        return sortedTerms(object_properties.has_member)
       } else return null
     }
 
     const memberOfConceptGroup = () => {  // "type", "member_of", or "sub_class_of"
       if (type.length > 0) {
-        return (type.map((t, i) => <li key={i}><Link to={{pathname: `/id/${topics[t].id}`}}>{t}</Link></li>))
+        return (type.map((t, i) => <Link to={{pathname: `/id/${topics[t].id}`}} key={i}>{t}</Link>))
       } else if (object_properties.member_of) {
-        return <li><Link to={{pathname: `/id/${object_properties.member_of[0].id}`}}>{object_properties.member_of[0].label}</Link></li>
+        return <Link to={{pathname: `/id/${object_properties.member_of[0].id}`}}>{object_properties.member_of[0].label}</Link>
       } else if (sub_class_of.length > 0) {
         return (sub_class_of.map((t, i) => {
-          return <li key={i}><Link to={{pathname: `/id/${t.id}`}}>{t.label}</Link></li>
+          return <Link to={{pathname: `/id/${t.id}`}} key={i}>{t.label}</Link>
         }) )      
       } else return null
     }
 
     return (
       <div>
+        <form className="newSearch" onSubmit={(event) => event.preventDefault()}>
+          <input type="text" name="queryString" aria-label="Enter search query" value={this.state.queryString} onChange={(event) => this.handleChange(event)}/>
+          <Link to={{pathname: `/search`, search: `&q=${this.state.queryString}&types=` }}>
+            <button>Search</button>
+          </Link>
+        </form>
         <div className="breadcrumbs">
           {/* Top Level */} <h4><Link to={{pathname: `/`}}>ITA Thesaurus</Link> > </h4>
           {/* Type or Topic */} {(type.length > 0) ? (<h3><Link to={{pathname: `/id/${topics[type[0]].id}`}}>{type[0]}</Link> > </h3>) : null} 
@@ -106,10 +126,10 @@ class TermInfo extends Component {
 
         <div className="termInfo">
           <span><h2>Term Information</h2></span>
-          {annotations.pref_label ? (<p><b>Preferred Term: </b>{annotations.pref_label}</p>) : null}
-          {annotations.alt_label ? (<p><b>Alternative term: </b>{annotations.alt_label}</p>) : null}
-          {description()}
-          {annotations.source ? (<p><b>Term Source: </b>{annotations.source}</p>) : null}
+            {annotations.pref_label ? (<p><b>Preferred Term: </b>{annotations.pref_label}</p>) : null}
+            {annotations.alt_label ? (<p><b>Alternative term: </b>{annotations.alt_label}</p>) : null}
+            {description()}
+            {annotations.source ? (<p><b>Term Source: </b>{annotations.source}</p>) : null}
         </div>
 
         <div className="termRelation">
@@ -117,9 +137,7 @@ class TermInfo extends Component {
           <div className="broader">
             <b><p>Broader terms: </p></b>
             <ul>
-              {object_properties.has_broader ? (object_properties.has_broader.map((t, i) => {
-                return <li key={i}><Link to={{pathname: `/id/${t.id}`}}>{t.label}</Link></li>
-              }) ) : null }
+              {sortedTerms(object_properties.has_broader)}
             </ul>
           </div>
           
@@ -128,9 +146,7 @@ class TermInfo extends Component {
           <div className="related">
             <b><p>Related terms: </p></b>
             <ul>
-              {object_properties.has_related ? (object_properties.has_related.map((t, i) => {
-                return <li key={i}><Link to={{pathname: `/id/${t.id}`}}>{t.label}</Link></li>
-              }) ) : null}
+              {sortedTerms(object_properties.has_related)}
             </ul>
           </div>
 
@@ -148,12 +164,7 @@ class TermInfo extends Component {
 
         <div className="superTerms">
           {memberOfConceptGroup() ? (
-            <>
-              <b><p>Member of Concept Group: </p></b>
-              <ul>
-                {memberOfConceptGroup()}
-              </ul>
-            </>
+              <p><b>Member of Concept Group: </b>{memberOfConceptGroup()}</p>
           ) : null}
         
           {object_properties.is_top_concept_in_scheme ? (
@@ -166,7 +177,7 @@ class TermInfo extends Component {
           ) : null }
 
         </div>
-        <Footer json={this.state.item}/>
+        {/* <Footer json={this.state.item}/> */}
       </div>
     );
   }

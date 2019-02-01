@@ -111,6 +111,11 @@
   margin-top: 20px;
 }
 
+.taxonomy_container .resultsList li {
+  list-style-type: none;
+  padding-bottom: 3px;
+}
+
 .taxonomy_container .spinner {
   margin-left: 75px;
 }
@@ -136,6 +141,7 @@
 
 .taxonomy_container .breadcrumbs {
   margin: 25px 20px 20px auto;
+  display: inline-block;
 }
 
 .taxonomy_container .breadcrumbs h1, h2, h3, h4 {
@@ -189,8 +195,37 @@
   margin-top: 10px;
 }
 
+.taxonomy_container .superTerms {
+  margin: 15px auto;
+}
+
 .taxonomy_container .superTerms p {
   margin: 5px auto 5px 20px;
+}
+
+.taxonomy_container .superTerms ul {
+  padding-left: 0;
+  margin-left: 20px;
+}
+
+.taxonomy_container .superTerms li {
+  list-style-type: none;
+}
+
+.taxonomy_container .newSearch {
+  float: right;
+  margin: 15px 0px 0px 15px;
+}
+
+.taxonomy_container .newSearch input {
+  border: 1px solid #5b5b5b;
+}
+
+.taxonomy_container .newSearch button {
+  height: 28px;
+  margin-left: 5px;
+  background-color: white;
+  border-radius: 5px;
 }
 
 /* a sort of chevron shape with css, it's kinda awkward */

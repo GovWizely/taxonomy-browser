@@ -23,14 +23,14 @@ class Thesauri extends Component {
           name: "col-3",
           items: [
             { name: "Trade Regions", value: "Trade Regions", id: "R7ySyiNxcfeZ6bfNjhocNun" },
-            { name: "**Trade Topics", value: "Trade Topics", id: "RBBed4Voz7iS3nUECA3yzNM" },
+            { name: "Trade Topics", value: "Trade Topics", id: "RBBed4Voz7iS3nUECA3yzNM" },
           ]
         }
       ],
       checkedListAll: [],
       AllItemsChecked: false,
       /* form */
-      queryString: '',
+      queryString: "",
     };
   };
 
@@ -100,6 +100,12 @@ class Thesauri extends Component {
 
   render() {
     const { columns, checkedListAll, AllItemsChecked } = this.state;
+    const types = () => {
+      if (this.state.AllItemsChecked) {
+        return ""
+      } else return this.state.checkedListAll
+    }
+
     return (
       <div>
         <h1>Thesaurus of International Trade Terms</h1>
@@ -107,7 +113,7 @@ class Thesauri extends Component {
         <form onSubmit={(event) => event.preventDefault()}>
           <div className="center">
             <input type="text" name="queryString" placeholder="Enter search query" aria-label="Enter search query" value={this.state.queryString} onChange={(event) => this.handleChange(event)}/>
-            <Link to={{pathname: `/search`, search: `&q=${this.state.queryString}&types=${this.state.checkedListAll}` }}>
+            <Link to={{pathname: `/search`, search: `&q=${this.state.queryString}&types=${types()}` }}>
               <button>Search</button>
             </Link>
           </div>
@@ -134,8 +140,6 @@ class Thesauri extends Component {
             })}
           </div>
         </form>
-        {/* <p><b>Are all items selected:</b> {`${AllItemsChecked}`}</p>
-        <p><b>Items selected:</b> {`${checkedListAll}`}</p> */}
       </div>
     );
   }
