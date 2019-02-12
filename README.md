@@ -25,9 +25,10 @@ The thesaurus was developed by ITA’s staff of international trade specialists,
     <script type="text/javascript" src="taxonomy-browser.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
-        API_KEY = "your_API_KEY"; // get it from http://api.trade.gov/
-        divID = "taxonomy_container"; // Or the ID of the div where you'd like it to appear
-        window.Explorer.renderTaxonomy(divID, API_KEY);
+        var BASE_URL = "https://api.trade.gov"; // or other host
+        var API_KEY = "your_API_KEY"; // get it from http://api.trade.gov/
+        var divID = "taxonomy_container"; // Or the ID of the div where you'd like it to appear
+        window.Explorer.renderTaxonomy(BASE_URL, API_KEY, divID);
       });
     </script>
     ```

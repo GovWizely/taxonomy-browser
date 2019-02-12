@@ -7,10 +7,10 @@ import './style.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
  
-function renderTaxonomy(divID, API_KEY) {
+function renderTaxonomy(BASE_URL, API_KEY, divID) {
   ReactDOM.render(
     <HashRouter hashType="noslash">
-      <App API_KEY={API_KEY}/>
+      <App BASE_URL={BASE_URL} API_KEY={API_KEY}/>
     </HashRouter>,
     document.getElementById(divID)
   );  

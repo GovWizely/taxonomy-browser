@@ -9,8 +9,8 @@ class App extends Component {
     return (
       <div className="taxonomy_container">
         <Route exact path={`/`} component={Thesauri} />
-        <Route path={`/search`} render={(props) => <ResultsList {...props} API_KEY={this.props.API_KEY} />} />
-        <Route exact path={`/id/:id`} render={(props) => <TermInfo {...props} API_KEY={this.props.API_KEY} location={props.location} />} />
+        <Route path={`/search`} render={(props) => <ResultsList {...props} BASE_URL={this.props.BASE_URL} API_KEY={this.props.API_KEY} />} />
+        <Route exact path={`/id/:id`} render={(props) => <TermInfo {...props} BASE_URL={this.props.BASE_URL} API_KEY={this.props.API_KEY} location={props.location} />} />
       </div>
     );
   }

@@ -27,7 +27,7 @@ class TermInfo extends Component {
 
   targetUrl = () => {
     const id =  this.props.match.params.id;
-    return `https://api.trade.gov/ita_taxonomies/${id}?api_key=${this.props.API_KEY}`;
+    return `${this.props.BASE_URL}/ita_taxonomies/${id}?api_key=${this.props.API_KEY}`;
   };
 
   fetchData = () => {
@@ -61,8 +61,8 @@ class TermInfo extends Component {
       // related_terms,
     } = this.state.item;
 
-    console.log("TermInfo fetched from: " + this.targetUrl())
-    console.log(this.state.item)
+    // console.log("TermInfo fetched from: " + this.targetUrl())
+    // console.log(this.state.item)
 
     const subTopic = () => {  // "member_of" or "sub_class_of"
       if (object_properties.member_of) return (<h2><Link to={{pathname: `/id/${object_properties.member_of[0].id}`}}>{object_properties.member_of[0].label}</Link> > </h2>)

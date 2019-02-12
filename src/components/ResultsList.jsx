@@ -21,12 +21,12 @@ class ResultsList extends Component {
   searchUrl = () =>  {
     const size = this.state.itemsPerPage;
     const searchParams = this.props.location.search;
-    return `https://api.trade.gov/ita_taxonomies/search?api_key=${this.props.API_KEY}&size=${size}${searchParams}&offset=${(this.state.activePage-1)*(size)}`
+    return `${this.props.BASE_URL}/ita_taxonomies/search?api_key=${this.props.API_KEY}&size=${size}${searchParams}&offset=${(this.state.activePage-1)*(size)}`
 
   };
 
   fetchResults = () => {
-    console.log("ResultsList fetched from: " + this.searchUrl());
+    // console.log("ResultsList fetched from: " + this.searchUrl());
     this.setState({loading: true}, () => {
       fetch(this.searchUrl())
       .then(response => response.json())
