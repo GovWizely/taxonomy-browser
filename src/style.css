@@ -9,103 +9,111 @@
   width: 1040px;
 }
 
-/* Four Style Sections: Start (Thesauri), Footer, Resultslist, TermInfo */
+/* Four Style Sections: Start (Thesauri), Resultslist, TermInfo, Footer */
 
-/* Start (Thesauri) view */
+/* ------- Start (Thesauri or SearchBar) view ------- */
 .taxonomy_container .center {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-align: center;
   margin-bottom: 15px;
 }
 
 .taxonomy_container .center button {
-  font-size: 14px;
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 16px;
   line-height: 28px;
+  height: 42px;
   padding-left: 5px;
   padding-right: 5px;
   margin-left: 5px;
   background-color: white;
   border: 2px solid #757575;
+  color: black;
 }
 
 .taxonomy_container .center button a {
-  color: black;
   text-decoration: none;
 }
 
-.taxonomy_container input[type=text] {
-  margin-left: auto;
-  margin-right: auto;
-  border: 2px solid #757575;
-  width: 250px;
-  font-size: 14px;
-  line-height: 28px;
-  padding-left: 5px;
-  padding-right: 5px;
-  height: 28px;
+.taxonomy_container .center button:hover {
+  border: 2px solid black;
 }
 
-.taxonomy_container form input::placeholder {
+.taxonomy_container .center input[type=text] {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: inline-block;
+  /* vertical-align: top; */
+  margin-left: 5px;
+  margin-top: 0;
+  border: 2px solid #757575;
+  width: 250px;
+  font-size: 16px;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 36px;
+}
+
+.taxonomy_container .center input[type=text]::placeholder {
   color: #515151;
 }
 
-.taxonomy_container .columns {
-  text-align: center;
+.taxonomy_container .center input[type=text]:hover {
+  border: 2px solid darkgray;
 }
 
-.taxonomy_container .col-1 {
+.taxonomy_container .Select {
   display: inline-block;
   vertical-align: top;
-  text-align: center;
-  margin-top: 13px;
-}
-
-.taxonomy_container #selectAll {
-  display: inline-block;
-  vertical-align: top;
+  width: 250px;
+  min-height: 1px;
+  font-family: 'Lato', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
   text-align: left;
+  border: none;
 }
 
-.taxonomy_container .col-2 {
-  display: inline-block;
-  vertical-align: top;
-  text-align: left;
+.taxonomy_container .Select__control {
+  border: 2px solid #757575;
+  border-radius: 0;
+  font-family: 'Lato', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+  min-height: 1px;
+  height: 42px;
 }
 
-.taxonomy_container .col-3 {
-  display: inline-block;
-  vertical-align: top;
-  text-align: left;
+.taxonomy_container .Select__input {
+  min-height: 1px;
 }
 
-.taxonomy_container form input[type=checkbox] {
-  border: 2.5px solid black;
-  size: 10px;
+.taxonomy_container .Select__dropdown-indicator {
+  min-height: 1px;
+  padding-top: 0;
+  padding-bottom: 0;
+  color: #757575;
 }
 
-/* Footer (appears in ResultsList and TermInfo views) */
-
-.taxonomy_container pre {
-  color: red;
-  font-size: 14px;
-  padding: 4px 8px;
-  background: #f8f8f8;
-  border-radius: 5px;
-  border: 1px solid #e5e5e5;
-  overflow-x: auto;
+.taxonomy_container .Select__indicator-separator {
+  min-height: 1px;
+  height: 24px;
 }
 
-.taxonomy_container .footer {
-  margin-top: 20px;
+.taxonomy_container .Select__clear-indicator {
+  min-height: 1px;
 }
 
-.taxonomy_container .footer button {
-  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 20px;
-  margin-top: 8px;
+.taxonomy_container .Select__value-container {
+  min-height: 1px;
+  height: 40px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
-/* ResultsList view */
+.taxonomy_container .Select__single-value {
+  min-height: 1px;
+  padding-bottom: 2px;
+}
+
+/* ------- ResultsList view ------- */
 
 .taxonomy_container .resultsList {
   margin-top: 20px;
@@ -137,7 +145,7 @@
   text-decoration: none;
 }
 
-/* TermInfo view */
+/* ------- TermInfo view ------- */
 
 .taxonomy_container .breadcrumbs {
   margin: 25px 20px 20px auto;
@@ -217,17 +225,72 @@
   margin: 15px 0px 0px 15px;
 }
 
+/* ------- FloatingSearchBox on ResultsList and TermInfo views ------- */
+
 .taxonomy_container .newSearch input {
-  border: 1px solid #5b5b5b;
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: inline-block;
+  /* vertical-align: top; */
+  margin-left: 5px;
+  margin-top: 0;
+  border: 2px solid #757575;
+  width: 200px;
+  font-size: 16px;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 28px;
+}
+
+.taxonomy_container .newSearch input[type=text]:hover {
+  border: 2px solid darkgray;
 }
 
 .taxonomy_container .newSearch button {
-  height: 28px;
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 16px;
+  /* line-height: 28px; */
+  height: 34px;
+  padding-left: 5px;
+  padding-right: 5px;
   margin-left: 5px;
   background-color: white;
-  border-radius: 5px;
+  border: 2px solid #757575;
+  color: black;
 }
 
+.taxonomy_container .newSearch button > a {
+  text-decoration: none;
+}
+
+.taxonomy_container .newSearch button:hover {
+  border: 2px solid black;
+}
+
+/* Footer (appears in ResultsList and TermInfo views) */
+/*
+.taxonomy_container pre {
+  color: red;
+  font-size: 14px;
+  padding: 4px 8px;
+  background: #f8f8f8;
+  border-radius: 5px;
+  border: 1px solid #e5e5e5;
+  overflow-x: auto;
+}
+
+.taxonomy_container .footer {
+  margin-top: 20px;
+}
+
+.taxonomy_container .footer button {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 8px;
+}
+*/
 /* a sort of chevron shape with css, it's kinda awkward */
 /* #arrow {
   margin: 0;

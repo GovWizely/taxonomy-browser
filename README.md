@@ -36,9 +36,6 @@ The thesaurus was developed by ITA’s staff of international trade specialists,
 3. Input the appropriate API_KEY and div ID into the script.
 4. Place the element `<div id="taxonomy_container"></div>` where the taxonomy container should appear in the `<body>`.
 
-## Known issues
-* The checkbox for `Trade Topics` doesn't return any results when passed as part of the search query.
-
 ## Additional Info
 * This project was bootstrapped with Create React App, and has been ejected to enable customization of webpack.
 * Two polyfill packages are implemented to support IE11: `react-app-polyfill/ie11`, and `babel-polyfill`.  They must be imported *in that order* in `src/index.js`.  Eventually, if IE11 support is no longer required, those two import statements (and the `babel-polyfill` npm package) can be safely removed.

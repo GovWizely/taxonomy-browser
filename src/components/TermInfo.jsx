@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom'; 
 import arrow from '../Right_Arrow.png';
+import FloatingSearchBox from './FloatingSearchBox';
 // import Footer from './Footer';
 import topics from '../topics';
 class TermInfo extends Component {
@@ -16,13 +17,7 @@ class TermInfo extends Component {
       },
       errorMessage: "",
       loading: false,
-      queryString: "",
     }
-  }
-
-  handleChange(event) {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
   };
 
   targetUrl = () => {
@@ -37,19 +32,19 @@ class TermInfo extends Component {
       .catch(error => console.log(error), (error) => {
         this.setState({errorMessage: error, loading: false});
       })
-  }
+  };
 
   componentDidMount = () => {
     this.setState({loading: true}, () => {
       this.fetchData();
     })
-  }
+  };
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.id !== prevProps.match.params.id) {
       this.fetchData(this.props.match.params.id);
     }
-  }
+  };
 
   render() {
     const {
@@ -61,21 +56,18 @@ class TermInfo extends Component {
       // related_terms,
     } = this.state.item;
 
-    // console.log("TermInfo fetched from: " + this.targetUrl())
-    // console.log(this.state.item)
-
     const subTopic = () => {  // "member_of" or "sub_class_of"
       if (object_properties.member_of) return (<h2><Link to={{pathname: `/id/${object_properties.member_of[0].id}`}}>{object_properties.member_of[0].label}</Link> > </h2>)
       else if (sub_class_of[0]) return (<h2><Link to={{pathname: `/id/${sub_class_of[0].id}`}}>{sub_class_of[0].label}</Link> > </h2>)
       else return null
-    }
+    };
 
-    const description = () => { // "definition", "scope_note", or "comment"
+    const description = () => {
       if (annotations.definition) { return (<p><b>Description: </b>{annotations.definition}</p>) }
       else if (annotations.scope_note) { return (<p><b>Description: </b>{annotations.scope_note}</p>) }
       else if (annotations.comment) { return (<p><b>Description: </b>{annotations.comment}</p>) }
       else return null
-    }
+    };
 
     const sortedTerms = (attribute) => {
       if (attribute) {
@@ -87,15 +79,13 @@ class TermInfo extends Component {
           return <li key={i}><Link to={{pathname: `/id/${t.id}`}}>{t.label}</Link></li>          
         })
       } else return null
-    }
+    };
 
-    const narrowerTerms = () => {  // "has_narrower" or "has_member"
-      if (object_properties.has_narrower) {
-        return sortedTerms(object_properties.has_narrower)
-      } else if (object_properties.has_member) {
-        return sortedTerms(object_properties.has_member)
-      } else return null
-    }
+    const narrowerTerms = () => {
+      if (object_properties.has_narrower) { return sortedTerms(object_properties.has_narrower) } 
+      else if (object_properties.has_member) { return sortedTerms(object_properties.has_member) } 
+      else return null
+    };
 
     const memberOfConceptGroup = () => {  // "type", "member_of", or "sub_class_of"
       if (type.length > 0) {
@@ -107,16 +97,12 @@ class TermInfo extends Component {
           return <Link to={{pathname: `/id/${t.id}`}} key={i}>{t.label}</Link>
         }) )      
       } else return null
-    }
+    };
 
     return (
       <div>
-        <form className="newSearch" onSubmit={(event) => event.preventDefault()}>
-          <input type="text" name="queryString" aria-label="Enter search query" value={this.state.queryString} onChange={(event) => this.handleChange(event)}/>
-          <Link to={{pathname: `/search`, search: `&q=${this.state.queryString}&types=` }}>
-            <button>Search</button>
-          </Link>
-        </form>
+        <FloatingSearchBox BASE_URL={this.props.BASE_URL} API_KEY={this.props.API_KEY}/>
+        
         <div className="breadcrumbs">
           {/* Top Level */} <h4><Link to={{pathname: `/`}}>ITA Thesaurus</Link> > </h4>
           {/* Type or Topic */} {(type.length > 0) ? (<h3><Link to={{pathname: `/id/${topics[type[0]].id}`}}>{type[0]}</Link> > </h3>) : null} 
@@ -164,16 +150,16 @@ class TermInfo extends Component {
 
         <div className="superTerms">
           {memberOfConceptGroup() ? (
-              <p><b>Member of Concept Group: </b>{memberOfConceptGroup()}</p>
+            <p><b>Member of Concept Group: </b>{memberOfConceptGroup()}</p>
           ) : null}
         
           {object_properties.is_top_concept_in_scheme ? (
             <p><b>Top Term of: </b> {object_properties.is_top_concept_in_scheme.map((t, i) => {
-              return (<Link key={i} to={{pathname: `/`}}>{t.label}</Link>) })}</p> ) : null }
+              return (<Link key={i} to={{pathname: `/`}}>{t.label}</Link>) })}</p> 
+          ) : null }
           
           {(object_properties.micro_thesaurus_of) ? (
-            <p><b>Microthesaurus of: </b>
-            <Link to={{pathname: `/`}}>{object_properties.micro_thesaurus_of[0].label}</Link></p>
+            <p><b>Microthesaurus of: </b><Link to={{pathname: `/`}}>{object_properties.micro_thesaurus_of[0].label}</Link></p>
           ) : null }
 
         </div>
@@ -181,6 +167,6 @@ class TermInfo extends Component {
       </div>
     );
   }
-}
+};
 
 export default withRouter(TermInfo);

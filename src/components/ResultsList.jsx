@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import Pagination from "react-js-pagination";
+import Pagination from 'react-js-pagination';
 import Loader from 'react-loader-spinner';
+import FloatingSearchBox from './FloatingSearchBox';
 // import Footer from './Footer';
 class ResultsList extends Component {
   constructor(props) {
@@ -15,8 +16,7 @@ class ResultsList extends Component {
       errorMessage: '',
       loading: false,
     }
-  }
-
+  };
 
   searchUrl = () =>  {
     const size = this.state.itemsPerPage;
@@ -35,20 +35,28 @@ class ResultsList extends Component {
         this.setState({errorMessage: error, loading: false});
       })
     })
-  }
+  };
 
   handlePageChange(pageNumber) {
     this.setState({ activePage: pageNumber }, () => this.fetchResults());
-  }
+  };
 
   componentDidMount = () => {
     this.fetchResults();
-  }
+  };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location.search !== prevProps.location.search) {
+      this.fetchResults();
+    }
+  };
 
   render() {
 
     return (
       <div className="resultsList">
+        <FloatingSearchBox BASE_URL={this.props.BASE_URL} API_KEY={this.props.API_KEY}/>
+
         <h1>Search Results</h1>
         <p><b>{this.state.numberOfResults} results:</b></p>
 
