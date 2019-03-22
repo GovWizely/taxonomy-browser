@@ -69,16 +69,18 @@ class ResultsList extends Component {
             })}
           </ul>
         )}
-        <Pagination 
-          activePage={this.state.activePage}
-          totalItemsCount={this.state.numberOfResults}
-          itemsCountPerPage={this.state.itemsPerPage}
-          firstPageText="First"
-          prevPageText="<"
-          nextPageText=">"
-          lastPageText="Last"
-          onChange={(pageNumber) => this.handlePageChange(pageNumber)}
-        />
+        { (this.state.numberOfResults > 0) ? (
+          <Pagination 
+            activePage={this.state.activePage}
+            totalItemsCount={this.state.numberOfResults}
+            itemsCountPerPage={this.state.itemsPerPage}
+            firstPageText="First"
+            prevPageText="<"
+            nextPageText=">"
+            lastPageText="Last"
+            onChange={(pageNumber) => this.handlePageChange(pageNumber)}
+          />
+        ) : null }
         <br />
         {/* <Footer json={this.state.footerData}/> */}
       </div>

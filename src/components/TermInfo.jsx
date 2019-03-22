@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom'; 
 import arrow from '../images/Right_Arrow.png';
 import FloatingSearchBox from './FloatingSearchBox';
+import Loader from 'react-loader-spinner';
 // import Footer from './Footer';
 import topics from '../topics';
 class TermInfo extends Component {
@@ -103,67 +104,71 @@ class TermInfo extends Component {
       <div>
         <FloatingSearchBox BASE_URL={this.props.BASE_URL} API_KEY={this.props.API_KEY}/>
         
-        <div className="breadcrumbs">
-          {/* Top Level */} <h4><Link to={{pathname: `/`}}>ITA Thesaurus</Link> > </h4>
-          {/* Type or Topic */} {(type.length > 0) ? (<h3><Link to={{pathname: `/id/${topics[type[0]].id}`}}>{type[0]}</Link> > </h3>) : null} 
-          {/* SubTopic */} {subTopic()}                              
-          {/* Term */} <h1>{label}</h1>
-        </div>
+        { this.state.loading ? (<div className="spinner"><Loader type="ThreeDots" color="#00CC66" width="100"/></div>) : (
+          <>
+            <div className="breadcrumbs">
+              {/* Top Level */} <h4><Link to={{pathname: `/`}}>ITA Thesaurus</Link> > </h4>
+              {/* Type or Topic */} {(type.length > 0) ? (<h3><Link to={{pathname: `/id/${topics[type[0]].id}`}}>{type[0]}</Link> > </h3>) : null} 
+              {/* SubTopic */} {subTopic()}                              
+              {/* Term */} <h1>{label}</h1>
+            </div>
 
-        <div className="termInfo">
-          <span><h2>Term Information</h2></span>
-            {annotations.pref_label ? (<p><b>Preferred Term: </b>{annotations.pref_label}</p>) : null}
-            {annotations.alt_label ? (<p><b>Alternative term: </b>{annotations.alt_label}</p>) : null}
-            {description()}
-            {annotations.source ? (<p><b>Term Source: </b>{annotations.source}</p>) : null}
-        </div>
+            <div className="termInfo">
+              <span><h2>Term Information</h2></span>
+                {annotations.pref_label ? (<p><b>Preferred Term: </b>{annotations.pref_label}</p>) : null}
+                {annotations.alt_label ? (<p><b>Alternative term: </b>{annotations.alt_label}</p>) : null}
+                {description()}
+                {annotations.source ? (<p><b>Term Source: </b>{annotations.source}</p>) : null}
+            </div>
 
-        <div className="termRelation">
-          <span><h2>Term Relationships</h2></span>
-          <div className="broader">
-            <b><p>Broader terms: </p></b>
-            <ul>
-              {sortedTerms(object_properties.has_broader)}
-            </ul>
-          </div>
+            <div className="termRelation">
+              <span><h2>Term Relationships</h2></span>
+              <div className="broader">
+                <b><p>Broader terms: </p></b>
+                <ul>
+                  {sortedTerms(object_properties.has_broader)}
+                </ul>
+              </div>
+            
+              <img src={arrow} alt="arrow pointing right"/>
+
+              <div className="related">
+                <b><p>Related terms: </p></b>
+                <ul>
+                  {sortedTerms(object_properties.has_related)}
+                </ul>
+              </div>
+
+              <img src={arrow} alt="arrow pointing right"/>
+
+              <div className="narrower">
+                <b><p>Narrower Terms: </p></b>
+                <ul>
+                  {narrowerTerms()}
+                </ul>
+              </div>
+            </div>
+
+            <hr/>
+
+            <div className="superTerms">
+              {memberOfConceptGroup() ? (
+                <p><b>Member of Concept Group: </b>{memberOfConceptGroup()}</p>
+              ) : null}
           
-          <img src={arrow} alt="arrow pointing right"/>
+              {object_properties.is_top_concept_in_scheme ? (
+                <p><b>Top Term of: </b> {object_properties.is_top_concept_in_scheme.map((t) => {
+                  return t.label })}</p> 
+              ) : null }
+            
+              {(object_properties.micro_thesaurus_of) ? (
+                <p><b>Microthesaurus of: </b>{object_properties.micro_thesaurus_of[0].label}</p>
+              ) : null }
 
-          <div className="related">
-            <b><p>Related terms: </p></b>
-            <ul>
-              {sortedTerms(object_properties.has_related)}
-            </ul>
-          </div>
-
-          <img src={arrow} alt="arrow pointing right"/>
-
-          <div className="narrower">
-            <b><p>Narrower Terms: </p></b>
-            <ul>
-              {narrowerTerms()}
-            </ul>
-          </div>
-        </div>
-
-        <hr/>
-
-        <div className="superTerms">
-          {memberOfConceptGroup() ? (
-            <p><b>Member of Concept Group: </b>{memberOfConceptGroup()}</p>
-          ) : null}
-        
-          {object_properties.is_top_concept_in_scheme ? (
-            <p><b>Top Term of: </b> {object_properties.is_top_concept_in_scheme.map((t) => {
-              return t.label })}</p> 
-          ) : null }
-          
-          {(object_properties.micro_thesaurus_of) ? (
-            <p><b>Microthesaurus of: </b>{object_properties.micro_thesaurus_of[0].label}</p>
-          ) : null }
-
-        </div>
-        {/* <Footer json={this.state.item}/> */}
+            </div>
+            {/* <Footer json={this.state.item}/> */}
+          </>
+        )}
       </div>
     );
   }

@@ -85,6 +85,22 @@ select::-ms-expand {
   border: 2px solid darkgray;
 }
 
+.taxonomy_container .categoryList {
+  text-align: left;
+  margin-left: 212px;
+}
+
+.taxonomy_container .categoryList > p {
+  margin-left: 40px;
+  margin-bottom: 0;
+}
+
+.taxonomy_container .categoryList > ul > li {
+  display: inline;
+  list-style-type: none;
+  padding-right: 25px;
+}
+
 /* ------- ResultsList view ------- */
 
 .taxonomy_container .resultsList {
