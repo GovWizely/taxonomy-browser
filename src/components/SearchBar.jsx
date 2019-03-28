@@ -39,7 +39,9 @@ class SearchBar extends Component {
   }
 
   onSelectSuggestion(val){
-    this.setState({ queryString: val });
+    this.setState({ queryString: val }, () => {
+      this.props.history.push({ pathname: `/search`, search: `&q=${this.state.queryString}&types=${this.state.selectedTopic}` });
+    });
   };
 
   retrieveSuggestions(value) {
@@ -91,6 +93,7 @@ class SearchBar extends Component {
               placeholder: "Enter search query",
               'aria-label': "Enter search query",
             }}
+            autoHighlight={false}
             value={this.state.queryString}
             items={this.state.autosuggestions} 
             getItemValue={this.getItemValue}

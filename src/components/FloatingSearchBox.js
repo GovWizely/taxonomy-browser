@@ -31,7 +31,9 @@ class FloatingSearchBox extends Component {
   }
 
   onSelectSuggestion(val){
-    this.setState({ queryString: val });
+    this.setState({ queryString: val }, () => {
+      this.props.history.push({ pathname: `/search`, search: `&q=${this.state.queryString}&types=` });
+    });
   };
 
   retrieveSuggestions(value) {
@@ -69,6 +71,7 @@ class FloatingSearchBox extends Component {
             placeholder: "Enter search query",
             'aria-label': "Enter search query",
           }}
+          autoHighlight={false}
           value={this.state.queryString}
           items={this.state.autosuggestions} 
           getItemValue={this.getItemValue}
