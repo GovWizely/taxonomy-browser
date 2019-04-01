@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import Pagination from 'react-js-pagination';
 import Loader from 'react-loader-spinner';
 import FloatingSearchBox from './FloatingSearchBox';
-// import Footer from './Footer';
+import Footer from './Footer';
 class ResultsList extends Component {
   constructor(props) {
     super(props)
@@ -80,7 +80,7 @@ class ResultsList extends Component {
           onChange={(pageNumber) => this.handlePageChange(pageNumber)}
         />
         <br />
-        {/* <Footer json={this.state.footerData}/> */}
+        <Footer json={this.state.footerData}/>
       </div>
     );
   }

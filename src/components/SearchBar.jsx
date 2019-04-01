@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Autocomplete from 'react-autocomplete';
+import Footer from './Footer';
 import '../taxonomy-browser.css';
 
 class SearchBar extends Component {
@@ -10,6 +11,7 @@ class SearchBar extends Component {
       queryString: "",
       autosuggestions: [],
       selectedTopic: "",
+      footerData: {},
     }
     this.handleChangeTopic = this.handleChangeTopic.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -102,6 +104,8 @@ class SearchBar extends Component {
             <button>Search</button>
           </Link>
         </form>
+
+        <Footer json={this.state.footerData}/>
       </div>
     )
   }
