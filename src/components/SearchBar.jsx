@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Autocomplete from 'react-autocomplete';
+import Footer from './Footer';
 import '../taxonomy-browser.css';
 
 class SearchBar extends Component {
@@ -10,6 +11,7 @@ class SearchBar extends Component {
       queryString: "",
       autosuggestions: [],
       selectedTopic: "",
+      footerData: {},
     }
     this.handleChangeTopic = this.handleChangeTopic.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -39,7 +41,9 @@ class SearchBar extends Component {
   }
 
   onSelectSuggestion(val){
-    this.setState({ queryString: val });
+    this.setState({ queryString: val }, () => {
+      this.props.history.push({ pathname: `/search`, search: `&q=${this.state.queryString}&types=${this.state.selectedTopic}` });
+    });
   };
 
   retrieveSuggestions(value) {
@@ -91,6 +95,7 @@ class SearchBar extends Component {
               placeholder: "Enter search query",
               'aria-label': "Enter search query",
             }}
+            autoHighlight={false}
             value={this.state.queryString}
             items={this.state.autosuggestions} 
             getItemValue={this.getItemValue}
@@ -102,6 +107,7 @@ class SearchBar extends Component {
             <button>Search</button>
           </Link>
         </form>
+        
         <div className="categoryList">
           <p><b>Browse By: </b></p>
           <ul>
@@ -112,6 +118,9 @@ class SearchBar extends Component {
             <li><Link to={{pathname: "/#id/RBBed4Voz7iS3nUECA3yzNM"}}>Trade Topics</Link></li>
           </ul>
         </div>
+        
+        <Footer json={this.state.footerData}/>
+        
       </div>
     )
   }

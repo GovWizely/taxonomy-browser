@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import Pagination from 'react-js-pagination';
 import Loader from 'react-loader-spinner';
 import FloatingSearchBox from './FloatingSearchBox';
-// import Footer from './Footer';
+import Footer from './Footer';
 class ResultsList extends Component {
   constructor(props) {
     super(props)
@@ -51,8 +51,30 @@ class ResultsList extends Component {
     }
   };
 
-  render() {
+  itemType(item) {
+    if (item.type.length > 0) {return (`${item.type[0]} > `)}
+  }
 
+  subTopic(item) {  // "member_of" or "sub_class_of"
+    if (item.object_properties.member_of) return (
+        `${item.object_properties.member_of[0].label} > `
+      )
+    else if (item.sub_class_of[0]) return (`${item.sub_class_of[0].label} > `)
+    else return null
+  };
+
+  sortedItems(items) {
+    if (items) {
+      return items.sort(function(a, b) {
+        if (a.label < b.label) { return -1 }
+        if (a.label > b.label) { return 1 }
+        return 0;
+      })
+    } else return null
+  };
+
+  render() {
+  
     return (
       <div className="resultsList">
         <FloatingSearchBox BASE_URL={this.props.BASE_URL} API_KEY={this.props.API_KEY}/>
@@ -64,8 +86,13 @@ class ResultsList extends Component {
           <div className="spinner"><Loader type="ThreeDots" color="#00CC66" width="100"/></div>
         ) : (
           <ul>
-            {this.state.results.map(item => {
-              return <li key={item.id}><Link to={{pathname: `/id/${item.id}`, state: {pageId: item.id}}}>{item.label}</Link></li>
+            {this.sortedItems(this.state.results).map(item => {
+              return (
+                <li key={item.id}>
+                  <Link to={{pathname: `/id/${item.id}`, state: {pageId: item.id}}}>
+                    {`${this.itemType(item)}${this.subTopic(item)}${item.label}`}
+                  </Link>
+                </li>)
             })}
           </ul>
         )}
@@ -82,7 +109,7 @@ class ResultsList extends Component {
           />
         ) : null }
         <br />
-        {/* <Footer json={this.state.footerData}/> */}
+        <Footer json={this.state.footerData}/>
       </div>
     );
   }

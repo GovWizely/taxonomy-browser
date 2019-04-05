@@ -257,7 +257,7 @@ select::-ms-expand {
 }
 
 /* Footer (appears in ResultsList and TermInfo views) */
-/*
+
 .taxonomy_container pre {
   color: red;
   font-size: 14px;
@@ -269,22 +269,40 @@ select::-ms-expand {
 }
 
 .taxonomy_container .footer {
+  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin-top: 20px;
 }
 
 .taxonomy_container .footer button {
-  font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  border: 2px solid #757575;
+  background-color: white;
   font-size: 16px;
   line-height: 20px;
   margin-top: 8px;
+  padding-top: 1px;
 }
-*/
-/* a sort of chevron shape with css, it's kinda awkward */
-/* #arrow {
-  margin: 0;
-	border-color: transparent #94afbf;
-	border-style: solid;
-	border-width: 8px 0px 8px 10px;
-	height: 0px;
-	width: 0px;
-} */
+
+.taxonomy_container .footer a[download] {
+  font-size: 16px;
+  line-height: 20px;
+  margin-left: 3px;
+  text-decoration: none;
+  border: 2px solid #757575;
+  background-color: white;
+  color: black;
+  padding: 1px 7px 3px 7px;
+}
+
+.taxonomy_container .footer button:hover {
+  border: 2px solid black;
+}
+
+.taxonomy_container .footer a[download]:hover {
+  border: 2px solid black;
+}
+
+.taxonomy_container .footer a[download] img {
+  height: 15px;
+  position: relative;
+  top: 1px;
+}

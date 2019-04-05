@@ -3,8 +3,9 @@ import { Link, withRouter } from 'react-router-dom';
 import arrow from '../images/Right_Arrow.png';
 import FloatingSearchBox from './FloatingSearchBox';
 import Loader from 'react-loader-spinner';
-// import Footer from './Footer';
+import Footer from './Footer';
 import topics from '../topics';
+        
 class TermInfo extends Component {
   constructor(props) {
     super(props)
@@ -166,7 +167,7 @@ class TermInfo extends Component {
               ) : null }
 
             </div>
-            {/* <Footer json={this.state.item}/> */}
+            <Footer json={this.state.item}/>
           </>
         )}
       </div>
