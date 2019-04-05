@@ -107,8 +107,20 @@ class SearchBar extends Component {
             <button>Search</button>
           </Link>
         </form>
-
+        
+        <div className="categoryList">
+          <p><b>Browse By: </b></p>
+          <ul>
+            <li><Link to={{pathname: "/#id/R79uIjoQaQ9KzvJfyB1H7Ru"}}>Industries</Link></li>
+            <li><Link to={{pathname: "/#id/R8W91u35GBegWcXXFflYE4"}}>Countries</Link></li>
+            <li><Link to={{pathname: "/#id/R8cndKa2D8NuNg7djwJcXxB"}}>World Regions</Link></li>
+            <li><Link to={{pathname: "/#id/R7ySyiNxcfeZ6bfNjhocNun"}}>Trade Regions</Link></li>
+            <li><Link to={{pathname: "/#id/RBBed4Voz7iS3nUECA3yzNM"}}>Trade Topics</Link></li>
+          </ul>
+        </div>
+        
         <Footer json={this.state.footerData}/>
+        
       </div>
     )
   }
